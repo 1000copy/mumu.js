@@ -1,42 +1,41 @@
-# fullstack.js - 大纲
-
-升级JS急速教程的目标和WBS任务分解
-
+# mumu.js
     
 ## 目标
 
-不变的是数据和操作的原始需求
+1. 记录奶量
 
-其中的CRD指的是Create、Read、Delete。针对的数据对象，就是一个Todo对象，看起来是这样的：
+奶量的JSON对象
 
-    {id:1,subject:"Loving"}
+    {id:1,q:120,date:"2023-08-18","09:10"}
 
-如果是多个数据对象，看起来是这样的：
+多个对象，看起来是这样的：
 
     [
-      {id:1,subject:"Loving"}，
-      {id:1,subject:"Writing"}，
-      {id:1,subject:"Preying"}
+      {id:1,q:120,date:"2023-08-18","05:10"},
+      {id:1,q:120,date:"2023-08-18","09:10"}
+      {id:1,q:120,date:"2023-08-18","15:10"}
+      {id:1,q:120,date:"2023-08-18","18:00"}
     ]
 
-这个看起来很简单平实的JS对象，会在一组组函数、模块和对象之间流动，甚至跨越网络边界，从内存到硬盘。它会被存储在Mongodb内，也会从Mongodb提取出来，在用户界面、HTTP客户端，HTTP服务器传递。整个App看起来就是一台机器，可以说代码在运，转这个机器，但是也不妨说是数据在驱动这个它。
+数据库表格
+	
+	create table meta (build integer)
+	insert into meta values(1)
+	create table milk (id integer,q integer,d text,t text)
 
-## 过往的实现方法
-    
-        使用Vuejs脚手架，快速搭建一个CRD用户界面。会使用vuex管理状态，使用vue-router管理路由。
-        使用Mongodb存储和提供后端CRD服务。
-        使用Nodejs搭建后端CRD服务。
-        使用Fecth|Axios访问后端CRD服务
-        使用bulfy的美化组件的方法
-        整合全栈服务
+## WBS
 
-## 现在的实现方法
+1. 数据库的创建和升级
+- 数据库不存在就执行sql/c.sql
+- 数据库存在,就检查build，执行此build number之后的就执行sql/a.{version}.sql
+
+## 实现方法
 
 目标是更多的减少依赖
 
 客户端UI
-- 使用纯粹的HTML+Vanila.js ,而不是vue.js
-- 使用无class的CSS，比如Water.css，而不是bulfy这样的美化组件的方法
+- 使用纯粹的HTML+Webcomponents
+- 使用无class的CSS，比如Water.css
 
 Service层
 - 使用Fecth访问后端CRD服务，自己解析Body，而不是使用body-parser
@@ -47,9 +46,10 @@ Service层
 - 使用JSON文件。测试JSON文件的CRD。
 
 
-## WBS
+## 细分
 
 客户端UI
+
 - 使用纯粹的HTML+Vanila.js ,而不是vue.js
 - 使用无class的CSS，比如Water.css，而不是bulfy这样的美化组件的方法
 
@@ -78,8 +78,6 @@ Service层
 - 
 ## 动机
 
-我想要弄一个简化的应用，去验证下目前的免费云可以做的事情。好几个需要验证的，服务状况各不相同，因此这个简化的应用当然最好不要那么多的依赖，否则不好测试验证。
+完成带娃的流水账app
 
-https://blog.51cto.com/u_15060545/2641343
 
-# mumu.js

@@ -1,0 +1,18 @@
+{
+  "manifest_version": 3,
+  "name": "storagetest",
+  "version": "0.1",
+  "description": "测试验证chromestorage - sync",
+  "permissions": [
+    "storage"
+  ],
+  "content_scripts": [
+    {
+      "js": ["content.js"],
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ]
+    }
+  ]
+}

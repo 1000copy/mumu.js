@@ -1,0 +1,15 @@
+<script type="text/javascript">
+	function here(e){
+		console.log(2,e)	
+	}
+</script>
+<h1>Spinner</h1>
+<rc-spinner value="10" step="2" max="10" min="-10" onchange="here()"/>
+<script type="module">
+	import('./wbct/main.js') 
+	var s = document.querySelector("rc-spinner")
+	s.addEventListener('onchange',(e)=>{
+		console.log(1,e)
+	})
+
+</script>

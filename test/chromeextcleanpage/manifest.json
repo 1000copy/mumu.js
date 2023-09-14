@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "KuiKui",
+  "version": "1.1",
+  "description": "名字来源于【众目睽睽】，关注的意思。可以通过这个插件做页面元素选择拷贝和清理，帮助阅读和摘取内容",
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "permissions": [
+    "storage"
+  ],
+  "content_scripts": [
+    {
+      "js": ["content.js"],
+      "css": ["content.css"],
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ]
+    }
+  ]
+}

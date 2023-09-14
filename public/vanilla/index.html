@@ -1,0 +1,127 @@
+<link rel="manifest" href="manifest.json" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="application-name" content="Summer Todo" />
+<meta name="apple-mobile-web-app-title" content="Summer Todo" />
+<meta name="msapplication-starturl" content="/index.html" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/>
+<link rel='stylesheet' href='https://cdn.jsdelivr.net/gh/kognise/water.css@latest/dist/dark.css'>
+ <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.css"> 
+<style>
+	i {
+	    cursor: pointer;
+	}
+	ul {
+	list-style: none;
+	}
+	#menu{
+		display: inline;
+		
+	}
+	#menu li{
+		float: left;
+		margin: 10px;
+	}
+	span#select{
+		display: inline-block;
+	}
+	span#banner{
+		display: inline;
+	}
+	#list{
+		margin-top:20px;
+	}
+	.grid-container {
+	  margin-left: 0px;
+	  display: grid;
+	  grid-template-columns: 20px 20px auto;
+	}
+	input{
+		display:inline-block !important;
+	}
+</style>
+<body onload="onload()">
+	<h1><i class="fas fa-list"></i>TodoApp</h1>
+	<ul id="menu"><li><a href="#" onclick="showtodo()"> Todo</a></li><li><a href="#" onclick="showproject()">Project</a></li><li><a href="#" onclick="showabout()">About</a></li></ul>
+	<div id="root"></div>
+	<template id="todo"><br/>
+		<span>Current Project</span><span id="select"></span><br/>
+		<div id="banner">
+			<input type="text" placeholder="subject here" id="text"/>
+			<button onclick="todo.add()"><i class="fas fa-plus"></i></button>
+			<button onclick="todo.clear1()"><i class="fas fa-trash"></i></button>
+		</div>
+		<div id="list">
+			<li>li</li>
+		</div>	
+	</template>
+	<template id="project"><br/>
+		<input type="text" placeholder="project name here" id="text"></input>
+		<button onclick="project.add()"><i class="fas fa-plus"></i></button>
+		<div id="list">
+			<li>li</li>
+		</div>	
+	</template>
+	<template id="about"><br/>
+		<h3>Yet Another  TODO app by Vanilla.js by Reco</h3>
+		<p>Interest Points are</p>
+		<ul>
+			<li>HTML template element</li>
+			<li>checkerror.js</li>
+			<li>jsondispatch</li>
+			<li>better-sqlite3</li>
+			<li>PWA with manifest.json</li>
+			<textarea disabled> <link rel="manifest" href="manifest.json" /> </textarea>
+		</ul>
+	</template>
+</body>
+<script ype="module">
+	// var todo;
+	async function showtodo(){
+		var item = await import('./js/todo.js')
+		var todo = item.default
+		const root = document.querySelector("#root");
+	  root.innerHTML = item.default.template
+	  todo.mount()
+	}
+	async function showproject(){
+		var item = await import('./js/project.js')
+		var obj = item.default
+		const root = document.querySelector("#root");
+	  root.innerHTML = obj.template
+	  obj.mount()
+	  obj.list()
+	}
+	async function showabout(){
+		var item = await import('./js/about.js')
+		var obj = item.default
+		const root = document.querySelector("#root");
+	  root.innerHTML = obj.template
+	}
+	async function dodispatch(json){
+		const response = await fetch('/api',{
+			headers: {
+		      'Accept': 'application/json',
+		      'Content-Type': 'application/json'
+		    },
+		    method: "POST",
+		    body: JSON.stringify(json)
+		});
+	  	const result = await response.json();
+	  	// console.log(result)
+	  	// return data;
+	  	if(result.error)
+	  		throw new Error(result.error)
+	  		// alert(result.error)
+	  		// return result.error
+	  	else
+	  		return result.data
+		// alert(JSON.stringify(data))
+	}
+	async function onload(){
+		await showtodo()
+	}
+</script>
