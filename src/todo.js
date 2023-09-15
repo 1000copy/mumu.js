@@ -1,7 +1,7 @@
 class Todo{
 	constructor(db){
 		this.db = db
-		this.init()
+		// this.init()
 	}
 	list(params){
 		if(params && params.pid){

@@ -1,7 +1,7 @@
 class Project{
 	constructor(db){
 		this.db = db
-		this.init()
+		// this.init()
 	}
 	list(){
 		var ls = this.db.prepare('SELECT * FROM project ').all();

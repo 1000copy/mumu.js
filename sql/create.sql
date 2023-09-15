@@ -1,0 +1,11 @@
+drop table if exists meta;
+create table if not exists meta(version integer);
+insert into meta values(1);
+create table IF NOT EXISTS todo(id integer,subject text,checked integer,pid integer);
+create table IF NOT EXISTS project(id integer,name text);
+insert into project values(1,'default1');
+insert into project values(2,'project1');
+insert into todo values(1,'todo 1',1,1);
+insert into todo values(1,'todo 2',1,1);
+insert into todo values(1,'todo 11',1,2);
+insert into todo values(1,'todo 22',1,2);

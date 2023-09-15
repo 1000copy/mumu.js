@@ -85,6 +85,11 @@ function static(req,res){
 var jd;
 const server = http.createServer(async(req, res) => {
   console.log(`${req.method} ${req.url}`);
+  if(req.url == "/" || req.url == "/index.html"){
+      res.writeHead(301, {
+        Location: `/vanilla/`
+      }).end();
+  }
   if(req.url == '/echo'){
     var json = await parserjson(req)
     res.writeHead(200, { 'Content-Type': 'application/json' });
@@ -106,7 +111,10 @@ const server = http.createServer(async(req, res) => {
 server.listen(port, () => {
     console.log(`Server is listening on port ${port}`);
     // var jsonfile = new JsonFile('./db/todo.json')
-    const db = require('better-sqlite3')('./db/foobar.db', {});
+    const DBNAME = "./db/DB.s3"
+    var dbinit = require("../lib/db").dbinit
+    dbinit(DBNAME,"./sql/create.sql")
+    const db = require('better-sqlite3')(DBNAME, {});
     var todo = new Todo(db)
     // todo.init()
     jd.register('todo',todo)

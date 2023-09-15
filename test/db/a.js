@@ -2,7 +2,7 @@ var check = require("../../lib/check")
 const dbname = "a.better.sqlite3"
 const db = require('better-sqlite3')(dbname, {});
 // exec
-var row = db.exec(`drop table meta;
+var row = db.exec(`drop table if exists meta;drop table if exists meta1;
 	create table if not exists meta(version integer);
 	create table if not exists meta1(version integer);
 	insert into meta values(1);
