@@ -120,4 +120,7 @@ server.listen(port, () => {
     jd.register('todo',todo)
     var project = new Project(db)
     jd.register('project',project)
+    var milk = new Milk(db)
+    // todo.init()
+    jd.register('milk',milk)    
 });
