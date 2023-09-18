@@ -2,9 +2,12 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.css"> 
 
 <script type="text/javascript">
-	function here(e){
-		console.log(2,e)	
-	}
+	 document.addEventListener("DOMContentLoaded", function(event) {
+	 	showmilk()
+	 })
+	// function here(e){
+	// 	console.log(2,e)	
+	// }
 	function showmilk(e){
 		var s = document.querySelector("#app")	
 		s.innerHTML = "<rc-milk/>"
@@ -15,7 +18,7 @@
 	}
 	function showspinner(e){
 		var s = document.querySelector("#app")	
-		s.innerHTML = `<rc-spinner value="10" step="2" max="10" min="-10" onchange="here()"/>`
+		s.innerHTML = `<rc-spinner value="10" step="2" max="10" min="-10"/>`
 	}
 </script>
 <h1>Mumu App</h1>

@@ -12,7 +12,7 @@ template.innerHTML = `
 <button id="buttonclear"><i class="fas fa-trash"></i></button>
 <span>Current Project</span><span id="select"></span><br/>
 <div id="banner">
-    <input type="text" placeholder="subject here" id="text"/>
+    <rc-spinner step="30" max="200" min="30" value="120">
     <button id="buttonadd"><i class="fas fa-plus"></i></button>
 </div>
 <div id="list">
@@ -20,6 +20,7 @@ template.innerHTML = `
 </div>  
 `;
 import {dispatch} from './dispatch.js'
+import './spinner.js'
 class Milk extends HTMLElement {
     constructor() {
         super();
