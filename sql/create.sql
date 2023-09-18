@@ -11,3 +11,4 @@ insert into todo values(1,'todo 11',1,2);
 insert into todo values(1,'todo 22',1,2);
 drop table if exists milk;
 create table milk (id integer,qty integer,d text,t text);
+insert into milk values(1,120,'2023-09-10','09:00');

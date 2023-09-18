@@ -3,6 +3,7 @@ const http = require('http');
 const path = require('path');
 var Todo = require('../src/todo')
 var Project = require('../src/project')
+var Milk = require('../src/milk')
 // var JsonFile = require("../lib/jsonfile")
 var jd = require('../lib/dispatch')
 
@@ -87,7 +88,8 @@ const server = http.createServer(async(req, res) => {
   console.log(`${req.method} ${req.url}`);
   if(req.url == "/" || req.url == "/index.html"){
       res.writeHead(301, {
-        Location: `/vanilla/`
+        // Location: `/vanilla/`
+        Location: `/wbct`
       }).end();
   }
   if(req.url == '/echo'){
