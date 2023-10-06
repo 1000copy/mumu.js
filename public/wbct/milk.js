@@ -69,11 +69,17 @@ class Milk extends HTMLElement {
         
         for(const k of data){
             var $li = document.createElement("li")
-            $li.innerHTML = `${k.qty}ML@${k.t}`
-            $li.id = k.id
+            $li.innerHTML = `${k.qty}ML@${k.t}<button><i class="fas fa-remove"></i></button>`
+            // $li.id = k.id
             this.$list.appendChild($li)    
-            $li.addEventListener('click',async(event)=>{
-                var json = {resource:"milk",action:"remove",params:{id:event.target.id}}
+            // querySelector可以在当前node上下文查询节点，而不是非要在root上，这个很方便的
+            var $b = $li.querySelector('button')
+            // console.log($b)
+            $b.id = k.id
+            $b.addEventListener('click',async(event)=>{
+                console.log(event.target,event.target.parentNode)
+                // 无论点击到i上，还是button上，都可以获得milk.id
+                var json = {resource:"milk",action:"remove",params:{id:event.target.id || event.target.parentNode.id}}
                 var data = await dispatch(json)
                 this.init()      
             })
