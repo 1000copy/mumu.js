@@ -12,6 +12,15 @@ class Milk{
 			return ls
 		}
 	}
+	total(params){
+		if(params && params.date){
+			var ls = this.db.prepare('SELECT sum(qty) as total FROM Milk where d = ? ').get(params.date);
+			return ls
+		}else{
+			var ls = this.db.prepare('SELECT sum(qty) as total FROM Milk ').get();
+			return ls
+		}
+	}
 	add(params){
 		const sm = this.db.prepare("insert into Milk values(?,?,?,?)")
 		sm.run(params.id,params.qty,params.d,params.t)

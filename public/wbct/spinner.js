@@ -1,25 +1,34 @@
 const template = document.createElement('template');
 template.innerHTML = `
+<link rel='stylesheet' href='https://cdn.jsdelivr.net/gh/kognise/water.css@latest/dist/dark.css'>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.css"> 
 <style>
     :host {
-    display: block;
-    font-family: sans-serif;
-    text-align: center;
+        display:inline-block !important;
+        text-align: center;
+        padding:0px !important;
     }
-
     button {
     border: none;
     cursor: pointer;
+    padding:5px !important;
     }
-
+    input{
+        display:inline-block !important;
+    }
+    button{
+        display:inline-block;
+    }
     ul {
     list-style: none;
     padding: 0;
     }
 </style>
-<input id="i" type="text" placeholder="0"></input>
-<button id="p">+</button>
-<button id="d">-</button>
+<div>
+    <input id="i" type="text" placeholder="0" size="5"></input>
+    <button id="p"><i class="fas fa-arrow-up"></i></button>
+    <button id="d"><i class="fas fa-arrow-down"></i></button>
+</div>
 `;
 
 class Spinner extends HTMLElement {

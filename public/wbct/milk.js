@@ -1,23 +1,30 @@
+//<button id="buttonclear"><i class="fas fa-trash"></i></button>
 const template = document.createElement('template');
 template.innerHTML = `
-<style>
-    :host {
-        display: block;
-        text-align: center;
-    }
-</style>
 <link rel='stylesheet' href='https://cdn.jsdelivr.net/gh/kognise/water.css@latest/dist/dark.css'>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.css"> 
-
-<button id="buttonclear"><i class="fas fa-trash"></i></button>
-<span>Current Project</span><span id="select"></span><br/>
+<style>
+    :host {
+        display:inline-block !important;
+        text-align: center;
+    }
+    #iadd{
+        color: #ff0000;
+    }
+    button.remove{
+        padding-left:8px !important;
+        padding-right:8px !important;
+    }
+</style>
 <div id="banner">
+    <input id= "date" type="date"></input>
     <rc-spinner step="30" max="200" min="30" value="120" id="qty"></rc-spinner>
-    <button id="buttonadd"><i class="fas fa-plus"></i></button>
+    <button id="buttonadd"><i class="fas fa-plus" id="iadd"></i></button>
 </div>
 <div id="list">
     <li>li</li>
 </div>  
+<span>Total:</span><span id="total">0</span><span>ML</span>
 `;
 function iso1(dt){
     // const dt = Date.now()
@@ -46,16 +53,22 @@ class Milk extends HTMLElement {
         super();
         this._shadowRoot = this.attachShadow({ 'mode': 'open' });
         this._shadowRoot.appendChild(template.content.cloneNode(true));
-        this.$list = this._shadowRoot.querySelector("#list")
-        this.$qty = this._shadowRoot.querySelector("#qty")
-        this.$buttonclear = this._shadowRoot.querySelector("#buttonclear")
-        this.$buttonclear.addEventListener("click",async()=>{
-            var json = {resource:"milk",action:"clear",params:{}}
-            var data = await dispatch(json)
+        this.$total = this._shadowRoot.getElementById('total')
+        this.$date = this._shadowRoot.getElementById('date')
+        this.$date.valueAsDate = new Date();
+        this.$date.addEventListener("change",async()=>{
             this.init()
         })
+        this.$list = this._shadowRoot.querySelector("#list")
+        this.$qty = this._shadowRoot.querySelector("#qty")
+        // this.$buttonclear = this._shadowRoot.querySelector("#buttonclear")
+        // this.$buttonclear.addEventListener("click",async()=>{
+        //     var json = {resource:"milk",action:"clear",params:{}}
+        //     var data = await dispatch(json)
+        //     this.init()
+        // })
         this._shadowRoot.querySelector("#buttonadd").addEventListener('click',async ()=>{
-            var json = {resource:"milk",action:"add",params:{id:+Date.now(),qty:this.$qty.value,d:iso1(new Date()),t:iso2(new Date())}}
+            var json = {resource:"milk",action:"add",params:{id:+Date.now(),qty:this.$qty.value,d:iso1(this.$date.valueAsDate),t:iso2(new Date())}}
             var data = await dispatch(json)
             this.init()
         })
@@ -63,13 +76,17 @@ class Milk extends HTMLElement {
         this.init()
     }
     async init(){
+        this.$total.innerHTML = "loading..."
+        var json = {resource:"milk",action:"total",params:{date:iso1(this.$date.valueAsDate)}}
+        var data = await dispatch(json)
+        this.$total.innerHTML = data.total
         this.$list.innerHTML = ""
-        var json = {resource:"milk",action:"list",params:{}}
+        var json = {resource:"milk",action:"list",params:{date:iso1(this.$date.valueAsDate)}}
         var data = await dispatch(json)
         
         for(const k of data){
             var $li = document.createElement("li")
-            $li.innerHTML = `${k.qty}ML@${k.t}<button><i class="fas fa-remove"></i></button>`
+            $li.innerHTML = `${k.qty}ML@${k.t}<button class="remove"><i class="fas fa-remove"></i></button>`
             // $li.id = k.id
             this.$list.appendChild($li)    
             // querySelector可以在当前node上下文查询节点，而不是非要在root上，这个很方便的
