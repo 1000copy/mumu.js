@@ -25,6 +25,7 @@ template.innerHTML = `
     }
 </style>
 <div>
+<span>Qty(ml)</span>
     <input id="i" type="text" placeholder="0" size="5"></input>
     <button id="p"><i class="fas fa-arrow-up"></i></button>
     <button id="d"><i class="fas fa-arrow-down"></i></button>

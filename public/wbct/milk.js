@@ -15,12 +15,20 @@ template.innerHTML = `
         padding-left:8px !important;
         padding-right:8px !important;
     }
+    div{
+        display:block;
+     }
+    input#date{
+       display:inline-block !important;
+    }
 </style>
 <div id="banner">
-    <input id= "date" type="date"></input>
+    <span>Date</span>
+    
+    <input id= "date" type="date"></input></div>
     <rc-spinner step="30" max="200" min="30" value="120" id="qty"></rc-spinner>
     <button id="buttonadd"><i class="fas fa-plus" id="iadd"></i></button>
-</div>
+
 <div id="list">
     <li>li</li>
 </div>  
