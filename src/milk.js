@@ -3,6 +3,16 @@ class Milk{
 	constructor(db){
 		this.db = db
 	}
+	chart(params){
+		return {
+			labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange1'],
+			datasets: [{
+				label: '# of Votes',
+				data: [12, 19, 3, 5, 2, 3],
+				borderWidth: 1
+			}]
+		}
+	}
 	list(params){
 		if(params && params.date){
 			var ls = this.db.prepare('SELECT * FROM Milk where d = ? ').all(params.date);
