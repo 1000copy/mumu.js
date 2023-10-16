@@ -4,14 +4,19 @@ class Milk{
 		this.db = db
 	}
 	chart(params){
-		return {
-			labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange1'],
+		var rs = this.db.prepare(`select d,sum(qty) as q from milk where d <= date('now') and d >=date('now','-7 days') group by d  order by d asc`).all()
+		const labels = rs.map((value)=>value.d)
+		const qtys = rs.map((value)=>value.q)
+		console.log(rs)
+		var data =  {
+			labels,//: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange1'],
 			datasets: [{
-				label: '# of Votes',
-				data: [12, 19, 3, 5, 2, 3],
+				label: 'milk sum',
+				data: qtys,//[12, 19, 3, 5, 2, 3],
 				borderWidth: 1
 			}]
 		}
+		return data
 	}
 	list(params){
 		if(params && params.date){
