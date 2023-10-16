@@ -1,4 +1,4 @@
-<link rel="manifest" href="./manifest.json" />
+<link rel="manifest" href="/wbct/manifest.json" />
 <meta name="mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="application-name" content="MuMu" />
@@ -16,53 +16,39 @@
 </script>
 <h1>Mumu App</h1>
 <a href="#" onclick="showmilk()">Milk |</a>
+<a href="#" onclick="showchart()">Chart |  </a>
 <a href="#" onclick="showabout()">About  </a>
 <!-- <a href="#" onclick="showspinner()">Spinner</a> -->
 <div id="app"></div>
-<div><canvas id="myChart"></canvas></div>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
+<script>
+	function showmilk(e){
+			var s = document.querySelector("#app")	
+			s.innerHTML = "<rc-milk/>"
+		}
+		function showabout(e){
+			var s = document.querySelector("#app")	
+			s.innerHTML = "<rc-about1/>"	
+		}
+		function showspinner(e){
+			var s = document.querySelector("#app")	
+			s.innerHTML = `<rc-spinner value="10" step="2" max="10" min="-10"/>`
+		}
+		function showchart(e){
+			var s = document.querySelector("#app")	
+			s.innerHTML = `<rc-chart/>`
+		}
+	</script>
 <script type="module">
 	import('./wbct/spinner.js') 
 	import('./wbct/milk.js') 
+	import('./wbct/chart.js') 
 	import('./wbct/about1.js') 
-	import {dispatch} from './wbct/dispatch.js'
-	async function chart(){
-		const ctx = document.getElementById('myChart');
-		// const data = {
-		// 		labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-		// 		datasets: [{
-		// 			label: '# of Votes',
-		// 			data: [12, 19, 3, 5, 2, 3],
-		// 			borderWidth: 1
-		// 		}]
-		// }
-		// const myChart = new Chart(ctx, {type:'bar',data});
-		var json = {resource:"milk",action:"chart",params:{}}
-		var data = await dispatch(json)
-		const myChart = new Chart(ctx, {type:'bar',data});
-	}
 	document.addEventListener("DOMContentLoaded", function(event) {
 	 	showmilk()
-		chart()
+		// chart()
 	 })
 	// function here(e){
 	// 	console.log(2,e)	
 	// }
-	function showmilk(e){
-		var s = document.querySelector("#app")	
-		s.innerHTML = "<rc-milk/>"
-	}
-	function showabout(e){
-		var s = document.querySelector("#app")	
-		s.innerHTML = "<rc-about1/>"	
-	}
-	function showspinner(e){
-		var s = document.querySelector("#app")	
-		s.innerHTML = `<rc-spinner value="10" step="2" max="10" min="-10"/>`
-	}
-</script>
-<script>
-
 	
 </script>
